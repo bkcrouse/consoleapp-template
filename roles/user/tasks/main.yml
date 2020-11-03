@@ -1,28 +1,71 @@
 - name: Add Trax user
   user: 
-    name: "{{user}}"
-    password: "{{pass}}"
-    groups: "{{addtogroup}}"
+    name: "{{ user }}"
+    password: "{{ pass }"
+    groups: "{{ addtogroup }}"
     append: yes
-    home: "{{homedir}}"
+    home: "{{ homedir }}"
     expires: -1
     skeleton: "/etc/skel"
     create_home: yes
     generate_ssh_key: yes
-    ssh_key_passphrase: "{{passphrase}}"
+    ssh_key_passphrase: "{{ passphrase }}"
     update_password: always
     state: present
 
 - name: Sync /etc/skel to user account created
   copy:
-    dest: "{{homedir}}"
+    dest: "{{ homedir }}"
     src: /etc/skel/.bashrc
-    owner: "{{user}}"
-    group: "{{user}}"
+    owner: "{{ user }}"
+    group: "{{ user }}"
 
 - name: Update .bashrc for user
   copy:
     dest: "{{homedir}}"
     src: .bashrc
-    owner: "{{user}}"
-    group: "{{user}}"
+    owner: "{{ user }}"
+    group: "{{ user }}"
+
+- name: Setup user home directory
+  file:
+    path: "{{ homedir }}/{{ item }"
+    state: directory
+    owner: "{{ user }}"
+    group: "{{ user }}"
+    force: yes
+  with_items:
+    ['console','install','scripts','backups, 'docker']
+
+- name: "Copy console app scripts to user directories"
+  copy:
+    force: yes
+    owner: "{{ user }}"
+    group: "{{ user }}"
+    src: "{{ item }}"
+    dest: "{{ homedir }}/scripts"
+    mode: 0755
+  with_items:
+    ['add-new-build.sh','backup-current-config.sh','restore-config.sh','restore-latest-config.sh','startTraxConsole.sh','stopTraxConsole.sh']
+
+- name: "Copy dockerfile to user docker directory"
+  copy:
+    force: yes
+    owner: "{{ user }}"
+    group: "{{ user }}"
+    src: "{{ item }}"
+    dest: "{{ homedir }}/docker"
+    mode: 0644
+  with_items:
+    ['Dockerfile']
+
+- name: "Copy dockerfile to user docker directory"
+  copy:
+    force: yes
+    owner: "{{ user }}"
+    group: "{{ user }}"
+    src: "{{ item }}"
+    dest: "{{ homedir }}/install"
+    mode: 0644
+  with_items:
+    ['Dockerfile']
