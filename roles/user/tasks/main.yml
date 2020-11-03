@@ -35,7 +35,7 @@
     group: "{{ user }}"
     force: yes
   with_items:
-    ['console','install','scripts','backups, 'docker']
+    ['console','install','scripts','backups,'docker']
 
 - name: "Copy console app scripts to user directories"
   copy:
