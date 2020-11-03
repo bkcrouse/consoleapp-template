@@ -12,7 +12,7 @@ if [[ -d /tmp/consoleapp ]]; then
 fi
 
 cd /tmp
-git clone https://github.com/bkcrouse/rhel8-consoleapp-ansible-template.git consoleapp
+git clone https://github.com/bkcrouse/consoleapp-template.git consoleapp
 cd consoleapp
 
 ansible-playbook site.yml --ask-vault-pass --flush-cache
