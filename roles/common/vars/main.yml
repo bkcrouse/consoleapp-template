@@ -11,6 +11,7 @@ packages:
     - jq
     - lsof
     - podman
+    - podman-docker
     - aspnetcore-runtime-3.1
     - dotnet-runtime-3.1
     - usbutils
@@ -22,6 +23,7 @@ packages:
     - pykickstart   
     - "@Development Tools" 
     - snapd
+
     
 uninstall:
     - postfix
