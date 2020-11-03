@@ -34,8 +34,7 @@ user: "{{vault_user}}"
 pass: "{{vault_pass}}"
 homedir: "{{vault_homedir}}"
 addtogroup: "{{vault_addtogroup}}"
-passphrase: "{{vault_passphrase}}"
-
+passphrase: "{{vault_passphrase}}"  
+  
 dump1090dir: "/usr/share/dump1090/"
-
 dump1090repo: "https://github.com/MalcolmRobb/dump1090.git"

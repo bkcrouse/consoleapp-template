@@ -3,3 +3,4 @@
     consoleapp
   roles: 
     - common
+    - user
