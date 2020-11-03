@@ -13,6 +13,9 @@ export PATH DISPLAY
 # Uncomment the following line if you don't like systemctl's auto-paging feature:
 # export SYSTEMD_PAGER=
 
+# User custom environment settings
+gsettings set org.gnome.desktop.session idle-delay 0
+
 # User specific aliases and functions
 
 # handle the crazy trax-console artifact top-level zip name and strip it
