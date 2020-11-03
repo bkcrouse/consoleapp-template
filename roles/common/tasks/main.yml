@@ -1,0 +1,123 @@
+- name: Add  Microsoft Linux Repo
+  shell: |
+    set timeout 3600
+    curl -sSL "{{msrepo}}" | sudo tee "{{msrepofile}}"
+    curl -sSL "{{msrepogpg}}" > /tmp/microsoft.asc
+    rpm --import /tmp/microsoft.asc
+
+- name: Install dnf package manager
+  yum:
+    name: dnf
+    state: present
+  
+- name: Install Packages
+  dnf: 
+    name: "{{ packages }}"
+    state: present
+
+- name: Enable and Start snapd service
+  service:
+    name: snapd
+    state: started
+    enabled: yes
+
+- name: Add Trax user
+  user: 
+    name: "{{user}}"
+    password: "{{pass}}"
+    groups: "{{addtogroup}}"
+    append: yes
+    home: "{{homedir}}"
+    expires: -1
+    skeleton: "/etc/skel"
+    create_home: yes
+    generate_ssh_key: yes
+    ssh_key_passphrase: "{{passphrase}}"
+    state: present
+
+- name: Sync /etc/skel to user account created
+  copy:
+    dest: "{{homedir}}"
+    src: /etc/skel/.bashrc
+    owner: "{{user}}"
+    group: "{{user}}"
+    
+- name: Enable user for sudo access
+  lineinfile: 
+    path: /etc/sudoers
+    state: present
+    regexp: '^%wheel\t+ALL='
+    line: '%wheel ALL=(ALL) NOPASSWD: ALL'
+    validate: '/usr/sbin/visudo -cf %s'
+
+- name: Disable Screenlock for user
+  lineinfile:
+    path: "{{homedir}}/.bashrc"
+    state: present
+    line: gsettings set org.gnome.desktop.session idle-delay 0
+    insertafter: EOF
+  
+- name: Create RTL-SDR Blacklist File
+  copy:
+    dest: "/etc/modprobe.d/rtl-sdr-blacklist.conf"
+    content: |
+        blacklist dvb_usb_rtl28xxu
+        blacklist e4000
+        blacklist rtl2832 
+
+- name: Stop and Disable FirewallD
+  service: 
+    name: firewalld
+    state: stopped
+    enabled: no
+
+- name: Enable Snapd service
+  service: 
+    name: snapd
+    state: started
+    enabled: yes
+
+- name: Install RTLSDR requirements
+  snap:
+    name: "{{snaps}}"
+    channel: beta
+    state: present
+
+- name: Setup links for RTLSDR libraries
+  shell: |
+    for p in `find /var/lib -name librtlsdr.pc`
+    do
+        ln -sf $p /usr/lib64/pkgconfig 
+    done
+
+    for p in `find /var/lib/snapd/snap/ -name librtlsdr* -not -path "*/pkgconfig/*"`
+    do
+        ln -sf $p /usr/lib64
+    done
+      
+- name: Blacklist kernel RTL devices
+  copy:
+    dest: "/etc/modprobe.d/rtl-sdr-blacklist.conf" 
+    content: |
+        blacklist dvb_usb_rtl28xxu
+        blacklist e4000
+        blacklist rtl2832
+
+- name: Test if dump1090 repo already exists
+  stat: path="{{dump1090dir}}"
+  register: status
+  tags: dump1090
+
+- name: Unzip dump1090 
+  shell: |
+    unzip -q -o -d "{{ dump1090dir }}" "{{ role_path }}/files/dump1090.zip"
+
+- name: Install update Makefile to dump1090
+  copy:
+    src: Makefile
+    dest: "{{dump1090dir}}"
+
+- name: Compile dump1090
+  shell: |
+    cd "{{dump1090dir}}"
+    make

@@ -1,0 +1,41 @@
+msrepo: "https://packages.microsoft.com/config/rhel/7/prod.repo"
+msrepogpg: "https://packages.microsoft.com/keys/microsoft.asc"
+msrepofile: /etc/yum.repos.d/microsoft.pro.repo
+packages:
+    - tcpdump
+    - dos2unix
+    - zip
+    - wget
+    - bind-utils
+    - unzip
+    - jq
+    - lsof
+    - podman
+    - aspnetcore-runtime-3.1
+    - dotnet-runtime-3.1
+    - usbutils
+    - git
+    - gcc 
+    - libusbx-devel 
+    - libusbx
+    - libusb
+    - pykickstart   
+    - "@Development Tools" 
+    - snapd
+    
+uninstall:
+    - postfix
+
+snaps:
+    - dump1090-net
+    - gqrx-lool
+
+user: "{{vault_user}}"
+pass: "{{vault_pass}}"
+homedir: "{{vault_homedir}}"
+addtogroup: "{{vault_addtogroup}}"
+passphrase: "{{vault_passphrase}}"
+
+dump1090dir: "/usr/share/dump1090/"
+
+dump1090repo: "https://github.com/MalcolmRobb/dump1090.git"
