@@ -1,6 +1,7 @@
 ---
 - hosts: 
     consoleapp
+  become: yes
   roles: 
     - common
     - user
