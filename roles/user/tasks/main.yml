@@ -1,7 +1,7 @@
-- name: Add Trax user
+- name: Add User
   user: 
     name: "{{ user }}"
-    password: "{{ pass }"
+    password: "{{ pass }}"
     groups: "{{ addtogroup }}"
     append: yes
     home: "{{ homedir }}"
