@@ -7,8 +7,7 @@ fi
 
 # User specific environment
 PATH="$HOME/.local/bin:$HOME/bin:$HOME/scripts:$PATH"
-DISPLAY=:0
-export PATH DISPLAY
+export PATH
 
 # Uncomment the following line if you don't like systemctl's auto-paging feature:
 # export SYSTEMD_PAGER=
