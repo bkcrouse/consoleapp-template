@@ -54,3 +54,6 @@
     state: present
     line: 'fs.inotify.max_user_watches = 16384'
     insertafter: EOF
+
+- name: Update system sysctl variables
+  command: sysctl --system
