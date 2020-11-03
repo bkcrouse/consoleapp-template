@@ -50,12 +50,12 @@
     line: '%wheel ALL=(ALL) NOPASSWD: ALL'
     validate: '/usr/sbin/visudo -cf %s'
 
-- name: Disable Screenlock for user
-  lineinfile:
-    path: "{{homedir}}/.bashrc"
-    state: present
-    line: gsettings set org.gnome.desktop.session idle-delay 0
-    insertafter: EOF
+#- name: Disable Screenlock for user
+#  lineinfile:
+#    path: "{{homedir}}/.bashrc"
+#    state: present
+#    line: gsettings set org.gnome.desktop.session idle-delay 0
+#    insertafter: EOF
   
 - name: Create RTL-SDR Blacklist File
   copy:
