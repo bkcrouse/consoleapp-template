@@ -35,7 +35,7 @@
     group: "{{ user }}"
     force: yes
   with_items:
-    ['console','install','scripts','backups,'docker']
+    ['console','install','scripts','backups','docker']
 
 - name: "Copy console app scripts to user directories"
   copy:
@@ -46,7 +46,12 @@
     dest: "{{ homedir }}/scripts"
     mode: 0755
   with_items:
-    ['add-new-build.sh','backup-current-config.sh','restore-config.sh','restore-latest-config.sh','startTraxConsole.sh','stopTraxConsole.sh']
+    - add-new-build.sh
+    - backup-current-config.sh
+    - restore-config.sh
+    - restore-latest-config.sh
+    - startTraxConsole.sh
+    - stopTraxConsole.sh
 
 - name: "Copy dockerfile to user docker directory"
   copy:
