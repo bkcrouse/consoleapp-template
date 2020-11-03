@@ -54,14 +54,14 @@
 
 - name: Copying script templates
   template:
-    src: add-new-build.js
+    src: add-new-build.j2
     dest: "{{ homedir }}/scripts/{{ item }}"
     mode: 0755
     owner: "{{ user }}"
     group: "{{ user }}"
   with_items:
     - add-new-build.sh
-    
+
 - name: "Copy dockerfile to user docker directory"
   copy:
     force: yes
