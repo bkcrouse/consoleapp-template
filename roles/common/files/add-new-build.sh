@@ -4,7 +4,7 @@ set -eoux pipefail
 
 BUILDNAME="${1:-/tmp/newbuild.zip}"
 
-TRAX_HOME="/opt/trax"
+TRAX_HOME="/home/trax"
 CONSOLE_HOME="${TRAX_HOME}/console"
 BACKUP_HOME="${TRAX_HOME}/backups"
 LATEST="${BACKUP_HOME}/latest-backup.tgz"
