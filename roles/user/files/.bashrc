@@ -7,7 +7,8 @@ fi
 
 # User specific environment
 PATH="$HOME/.local/bin:$HOME/bin:$HOME/scripts:$PATH"
-export PATH
+DISPLAY=:0
+export PATH DISPLAY
 
 # Uncomment the following line if you don't like systemctl's auto-paging feature:
 # export SYSTEMD_PAGER=
@@ -27,3 +28,4 @@ unzip-strip() (
         mv "$temp"/* "$dest"
     fi && rmdir "$temp"/* "$temp"
 )
+

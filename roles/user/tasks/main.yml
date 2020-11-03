@@ -1,0 +1,27 @@
+- name: Add Trax user
+  user: 
+    name: "{{user}}"
+    password: "{{pass}}"
+    groups: "{{addtogroup}}"
+    append: yes
+    home: "{{homedir}}"
+    expires: -1
+    skeleton: "/etc/skel"
+    create_home: yes
+    generate_ssh_key: yes
+    ssh_key_passphrase: "{{passphrase}}"
+    state: present
+
+- name: Sync /etc/skel to user account created
+  copy:
+    dest: "{{homedir}}"
+    src: /etc/skel/.bashrc
+    owner: "{{user}}"
+    group: "{{user}}"
+
+- name: Update .bashrc for user
+  copy:
+    dest: "{{homedir}}"
+    src: .bashrc
+    owner: "{{user}}"
+    group: "{{user}}"
