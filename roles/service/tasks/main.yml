@@ -1,0 +1,11 @@
+- name: Installing console app service
+  template:
+    src: traxconsole.service.j2
+    dest: /etc/systemd/system/traxconsole.service
+    mode: 0755
+
+- name: Configuring console as a service
+  service:
+    name: traxconsole
+    state: stopped
+    enabled: yes
