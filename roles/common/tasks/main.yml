@@ -40,3 +40,17 @@
     name: snapd
     state: started
     enabled: yes
+
+- name: Add net.ipv4.conf.all.rp_filter to /etc/sysctl.conf
+  lineinfile: 
+    path: /etc/sysctl.conf
+    state: present
+    line: 'net.ipv4.conf.all.rp_filter = 0'
+    insertafter: EOF
+
+- name: Add fs.inotify.max_user_watches to /etc/sysctl.conf
+  lineinfile: 
+    path: /etc/sysctl.conf
+    state: present
+    line: 'fs.inotify.max_user_watches = 16384'
+    insertafter: EOF
