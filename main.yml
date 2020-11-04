@@ -6,4 +6,5 @@
     - common
     - user
     - dump1090
+    - docker
     - service
