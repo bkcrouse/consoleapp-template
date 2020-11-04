@@ -11,8 +11,8 @@ After=network-online.target
 [Service]
 Environment=PODMAN_SYSTEMD_UNIT=%n
 Restart=on-failure
-ExecStart={{ homedir }}/scripts/startTraxConsole.sh
-ExecStop={{ homedir }}/scripts/stopTraxConsole.sh
+ExecStart=/usr/local/bin/startTraxConsole.sh
+ExecStop=/usr/local/bin/stopTraxConsole.sh
 KillMode=none
 Type=forking
 
