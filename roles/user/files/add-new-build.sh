@@ -60,6 +60,6 @@ touch ${CONSOLE_HOME}/Eula/$VERSION-ConsoleTraxEula
 #
 # restore the latest backup of the configuration files
 #
-${TRAX_HOME}/scripts/restore-latest-config.sh
+[[ -e ${TRAX_HOME}/backups/latest-backup.tgz ]] && ${TRAX_HOME}/scripts/restore-latest-config.sh
 
 
