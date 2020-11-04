@@ -49,8 +49,6 @@
     - backup-current-config.sh
     - restore-config.sh
     - restore-latest-config.sh
-    - startTraxConsole.sh
-    - stopTraxConsole.sh
     - add-new-build.sh
 
 - name: "Copy dockerfile to user docker directory"
@@ -63,14 +61,5 @@
     mode: 0644
   with_items:
     - Dockerfile
-
-- name: "Copy dockerfile to user docker directory"
-  copy:
-    force: yes
-    owner: "{{ user }}"
-    group: "{{ user }}"
-    src: "{{ item }}"
-    dest: "{{ homedir }}/install"
-    mode: 0644
-  with_items:
-    - Dockerfile
+    - Dockerfile.test
+    - Makefile

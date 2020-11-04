@@ -1,0 +1,14 @@
+- name: "Copy console app scripts to /usr/local/bin"
+  copy:
+    force: yes
+    src: "{{ item }}"
+    dest: "/usr/local/bin"
+    mode: 0755
+  with_items:
+    - startTraxConsole.sh
+    - stopTraxConsole.sh
+
+- name: "Build the test container"
+  make:
+    chdir: "{{ homedir }}/docker"
+    target: test

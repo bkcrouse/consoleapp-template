@@ -7,7 +7,7 @@ COUNT="$(podman ps -a --format {{.Names}} | grep $CONTAINER_NAME | wc -l )"
 # create the container if it does not already exist in a start or stopped state
 if [ $COUNT -eq 0 ];then
 
-	 podman run -t -d --privileged --rm --net=host --name=$CONTAINER_NAME -v /opt/trax/console:/trax:z localhost/traxconsole:latest
+	 podman run -t -d --privileged --rm --net=host --name=$CONTAINER_NAME -v /home/trax/console:/trax:z localhost/traxconsole:latest
 	 exit $?
 fi
 
