@@ -1,10 +1,3 @@
-- name: Add  Microsoft Linux Repo
-  shell: |
-    set timeout 3600
-    curl -sSL "{{msrepo}}" | sudo tee "{{msrepofile}}"
-    curl -sSL "{{msrepogpg}}" > /tmp/microsoft.asc
-    rpm --import /tmp/microsoft.asc
-
 - name: Install dnf package manager
   yum:
     name: dnf
