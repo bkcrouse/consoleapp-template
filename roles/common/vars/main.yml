@@ -9,6 +9,7 @@ packages:
     - bind-utils
     - unzip
     - jq
+    - htop
     - lsof
     - podman
     - podman-docker
